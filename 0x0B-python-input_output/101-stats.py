@@ -1,44 +1,33 @@
 #!/usr/bin/python3
-'''task 14 module'''
+'Log Parsing'
+import sys
 
-
-from sys import stdin
-
-
-status_codes = {
-        '200': 0,
-        '301': 0,
-        '400': 0,
-        '401': 0,
-        '403': 0,
-        '404': 0,
-        '405': 0,
-        '500': 0
-        }
-
-total_size = i = 0
-
-
-def printer():
-    '''this function prints the statistics'''
-    print(f'File size: {total_size}')
-    for key, value in sorted(status_codes.items()):
-        if value > 0:
-            print('{:s}: {:d}'.format(key, value))
-
-
+status_list = [200, 301, 400, 401, 403, 404, 405, 500]
 try:
-    for line in stdin:
-        splitted_line = line.split()
-        if len(splitted_line) >= 2:
-            status = splitted_line[-2]
-            total_size += int(splitted_line[-1])
-            if status in status_codes:
-                status_codes[status] += 1
-        i += 1
+    total_size = 0
+    final_list = []
+    for index, line in enumerate(sys.stdin, 1):
+        if line:
+            line_split = line.split()
+            if len(line_split) > 2:
+                if line_split[-1].isnumeric() and line_split[-2].isnumeric():
+                    size = line_split[-1]
+                    status = line_split[-2]
+                    total_size += int(size)
+            if len(status) > 0 and int(status) in status_list:
+                final_list.append(int(status))
+        if index % 10 == 0:
+            print('File size: {}'.format(total_size))
+            for i in status_list:
+                if i in final_list:
+                    status_count = final_list.count(i)
+                    print("{}: {}".format(i, status_count))
+except Exception:
+    pass
 
-        if i % 10 == 0:
-            printer()
-    printer()
-except KeyboardInterrupt as e:
-    printer()
+finally:
+    print('File size: {}'.format(total_size))
+    for i in status_list:
+        if i in final_list:
+            status_count = final_list.count(i)
+            print("{}: {}".format(i, status_count))
