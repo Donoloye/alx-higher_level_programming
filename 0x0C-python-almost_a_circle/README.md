@@ -1,1 +1,3 @@
-This is my Read me files
+# 0x0C. Python - Almost a circle
+(Object Oriented Programming)
+OOP
