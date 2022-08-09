@@ -1,3 +1,1 @@
-# 0x0C. Python - Almost a circle
-(Object Oriented Programming)
-OOP
+This project serves as a review of topics that have been taught in python.
