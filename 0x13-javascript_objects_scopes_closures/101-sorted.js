@@ -1,12 +1,13 @@
 #!/usr/bin/node
-const direc = require('./101-data').dict;
-const ndix = {};
+// Script imports a dictionary of occurrences by user id
+// and computes a dictionary of user ids by occurrence.
 
-for (const k in direc) {
-  if (direc[k] in ndix) {
-    ndix[direc[k]].push(k);
-  } else {
-    ndix[direc[k]] = [k];
-  }
+const { dict } = require('./101-data.js');
+const Dictn = {};
+for (const N in dict) {
+    if (Dictn[dict[N]] === undefined) {
+	Dictn[dict[N]] = [];
+    }
+    Dictn[dict[N]].push(N);
 }
-console.log(ndix);
+console.log(Dictn);
